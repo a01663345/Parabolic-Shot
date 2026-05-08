@@ -6,6 +6,12 @@ ball = vector(-200, -200)
 speed = vector(0, 0)
 targets = []
 
+# Create initial targets
+for count in range(5):
+    y = randrange(-150, 150)
+    target = vector(randrange(0, 200), y)
+    targets.append(target)
+
 def tap(x, y):
     "Respond to screen tap."
     if not inside(ball):
@@ -36,18 +42,17 @@ def draw():
 
 def move():
     "Move ball and targets."
-    if randrange(40) == 0:
-        y = randrange(-150, 150)
-        target = vector(200, y)
-        targets.append(target)
 
     for target in targets:
+        target.x -= 3
 
-        # CHANGED: target speed increased
-        target.x -= 1.5
+        # REposition of target
+        if target.x < -200:
+            target.x = 200
+            target.y = randrange(-150, 150)
 
-    if inside(ball):
-        speed.y -= 0.35
+    if inside(ball):code 
+        speed.y -= 0.5
         ball.move(speed)
 
     dupe = targets.copy()
@@ -59,11 +64,7 @@ def move():
 
     draw()
 
-    for target in targets:
-        if not inside(target):
-            return
-
-    ontimer(move, 50)
+    ontimer(move,25) 
 
 setup(420, 420, 370, 0)
 hideturtle()
